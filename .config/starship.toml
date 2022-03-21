@@ -1,0 +1,48 @@
+[directory]
+fish_style_pwd_dir_length = 1
+style = "bold blue"
+
+[character]
+success_symbol = "[\\$](bold green)"
+error_symbol = "[\\$](bold red)"
+vicmd_symbol = "[|](bold red)"
+
+[aws]
+disabled = true
+
+[time]
+disabled = false
+style = "bold blue"
+format = "[$time]($style) "
+
+[java]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[git_branch]
+style = "bold blue"
+format = "@ [$symbol$branch]($style) "
+
+[git_state]
+style = "bold blue"
+
+[git_status]
+style = "bold blue"
+diverged = "⇡⇣"
+
+[git_commit]
+style = "bold blue"
+
+[cmd_duration]
+style = "bold blue"
+
+[dotnet]
+disabled = true
+
+[scala]
+disabled = true
+
+[docker_context]
+disabled = true

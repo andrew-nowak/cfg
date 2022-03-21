@@ -1,0 +1,81 @@
+[include]
+	path = ~/.private-gitconfig
+
+[push]
+	default = simple
+
+[core]
+	excludesfile = ~/.gitignore
+
+	# https://www.git-tower.com/blog/make-git-rebase-safe-on-osx
+	trustctime = false
+
+	# Faster git status etc.
+	untrackedCache = true
+
+	editor = vim
+
+[commit]
+	verbose = true
+
+[log]
+	decorate = true
+
+[alias]
+	aliases = config --get-regexp '^alias'
+	amend = commit --no-edit --amend
+
+	b = branch -a
+	branches = branch -a
+
+	co = checkout
+
+	d = diff
+	da = diff HEAD
+	dc = diff --cached
+	ds = diff --staged
+	diffb = !git diff $(git defaultbranch)...
+	defaultbranch = !git symbolic-ref refs/remotes/origin/HEAD | sed 's@^refs/remotes/origin/@@'
+
+	fixpl = !npm install --package-lock-only
+	fixpush = !git remote set-url --push origin $(git remote get-url origin)
+
+	last = log --no-decorate -n 1
+	lg = !git lg1
+	lg1 = !git lg1-specific --all
+	lg2 = !git lg2-specific --all
+	lg3 = !git lg3-specific --all
+	lg1-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)'
+	lg2-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset)%C(auto)%d%C(reset)%n''\t\t   %C(white)%s%C(reset) %C(dim white)- %an%C(reset)'
+	lg3-specific = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold cyan)%aD%C(reset) %C(bold green)(%ar)%C(reset) %C(bold cyan)(committed: %cD)%C(reset) %C(auto)%d%C(reset)%n''\t\t   %C(white)%s%C(reset)%n''\t\t\t %C(dim white)- %an <%ae> %C(reset) %C(dim white)(committer: %cn <%ce>)%C(reset)'
+	lgo = log
+	ln = log --oneline --no-decorate
+	ln1 = log --oneline --no-decorate -n 1
+
+	# new branch
+	nb = checkout -b
+	no = !"f() { find . -type d -name node_modules -prune -o -name package-lock.json -print | xargs git restore; }; f "
+	nopush = remote set-url --push origin nopush
+
+	redate = "!f() { if ! git staged; then echo \"It's dangerous to run that command with staged changes! Stash then try again\"; exit 1; else export TO_DATE=$(date -Iseconds); GIT_AUTHOR_DATE=$TO_DATE git commit --amend --allow-empty --no-edit --date $TO_DATE; fi; }; f"
+	remotes = remote -v
+	run = "!f() { ./.git/hooks/$1; }; f"
+
+	s = status
+	staged = diff --cached --quiet
+	stashpull = !git stash save && git pull && git stash pop
+
+	tags = tag -l
+	thisbranch = rev-parse --abbrev-ref HEAD
+
+	uncommit = reset --soft HEAD^
+	# update to include all commits in `defaultbranch` (because not all repos default to master :( )
+	up = !git fetch --all && git merge origin/$(git defaultbranch)
+
+	ver = describe --always --tags
+
+[pull]
+	ff = only
+
+[init]
+	defaultBranch = main

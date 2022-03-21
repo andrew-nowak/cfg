@@ -1,0 +1,88 @@
+###########
+# Aliases #
+
+# for macOS, overwrite default ls with gls
+# whichever ls you end up with; enable colours
+2>&1 >/dev/null which gls && \
+  alias ls="gls --color=auto" || \
+  alias ls="ls --color=auto"
+
+alias cdw='cd ~/workspace'
+
+v() {
+  nvim "$@"
+}
+
+# common tpyos
+alias claer='clear'
+alias gti='git'
+
+alias ll="ls -lFh"
+alias la="ll -A"
+
+alias path='echo -e ${PATH//:/\\n}'
+
+alias alert="osascript -e 'display notification \"Your thing is done\" with title \"alert\"'"
+
+alias stripcol="perl -pi -e 's/\\x1b\\[[0-9;]*m//g'"
+
+npu() {
+  [ -f .nvmrc ] && nvm exec npm "$@" || npm "$@"
+}
+
+nodu() {
+  [ -f .nvmrc ] && nvm exec node "$@" || node "$@"
+}
+
+bs() {
+  BROWSERS="firefox:safari:Google Chrome:opera"
+  for b in ${(s.:.)BROWSERS}; do open -a $b $1; done
+}
+
+alias uuidlower="uuidgen | tr '[:upper:]' '[:lower:]'"
+
+runfrom() {
+  ( cd $1 && "${@:2}" )
+}
+
+serve() {
+  runfrom ${1:-"."} python3 -m http.server --bind 127.0.0.1
+}
+
+# sometimes you want to run a localhost server with create-react-app which
+# enforces CORS rules 😠 but the swiss army snake saves the day
+servecors() {
+  echo "Running on https://localhost.bbc.co.uk:7080/"
+  runfrom ${1:-"."} python3 <<EOP
+import http.server
+
+class CORSRequestHandler(http.server.SimpleHTTPRequestHandler):
+  def end_headers(self):
+    self.send_header('Access-Control-Allow-Origin', '*')
+    http.server.SimpleHTTPRequestHandler.end_headers(self)
+
+server_address = ('localhost', 7080)
+httpd = http.server.HTTPServer(server_address, CORSRequestHandler)
+httpd.serve_forever()
+EOP
+}
+
+alias rot13='tr 'A-Za-z' 'N-ZA-Mn-za-m' <<<'
+
+function slesc {
+  echo $1 | sed -e 's/\//\\\//g'
+}
+
+# passes file found with fuzzy-find as last argument in rest of command
+# e.g. `f vim` to find a file to edit with vim
+#      `f git add` to find a file to stage in git
+# probably breaks on filenames with quotes 😬
+f () {
+  if 2>&1 >/dev/null which fzf; then
+    "$@" "$(fzf)"
+  else
+    fzf # just print the usual command is not installed error
+  fi
+}
+
+[ -e "$HOME/.config/awesome/rc.lua" ] && alias awcon="vim $HOME/.config/awesome/rc.lua"
