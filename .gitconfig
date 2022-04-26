@@ -40,6 +40,8 @@
 	fixpl = !npm install --package-lock-only
 	fixpush = !git remote set-url --push origin $(git remote get-url origin)
 
+	isclean = !"[[ -z \"$(git status --porcelain)\" ]]"
+
 	last = log --no-decorate -n 1
 	lg = !git lg1
 	lg1 = !git lg1-specific --all
@@ -56,6 +58,8 @@
 	nb = checkout -b
 	no = !"f() { find . -type d -name node_modules -prune -o -name package-lock.json -print | xargs git restore; }; f "
 	nopush = remote set-url --push origin nopush
+
+	pullf = !"f() { if ! git isclean; then echo \"Clean your checkout first!\"; exit 1; else git reset --hard origin/\"$(git thisbranch)\"; fi; }; f"
 
 	redate = "!f() { if ! git staged; then echo \"It's dangerous to run that command with staged changes! Stash then try again\"; exit 1; else export TO_DATE=$(date -Iseconds); GIT_AUTHOR_DATE=$TO_DATE git commit --amend --allow-empty --no-edit --date $TO_DATE; fi; }; f"
 	remotes = remote -v
