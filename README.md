@@ -1,6 +1,8 @@
 # config files
 
-Install to a new env:
+Uses the scheme described in <https://www.atlassian.com/git/tutorials/dotfiles>.
+
+## install
 
 ```sh
 git clone --bare https://github.com/andrew-nowak/cfg $HOME/.cfg
@@ -18,5 +20,3 @@ fi;
 config checkout
 config config status.showUntrackedFiles no
 ```
-
-
