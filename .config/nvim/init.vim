@@ -194,3 +194,5 @@ endif
 
 autocmd BufEnter *.{js,jsx,ts,tsx} :syntax sync fromstart
 autocmd BufLeave *.{js,jsx,ts,tsx} :syntax sync clear
+
+nnoremap <Leader>at 0"=strftime('%a %d %b %Y')<CR>Pa<CR><ESC>O

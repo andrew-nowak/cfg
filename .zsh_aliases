@@ -89,3 +89,13 @@ f () {
 
 alias cfg='git --git-dir=$HOME/.cfg --work-tree=$HOME'
 alias sc="jq .scripts package.json"
+
+note () {
+	if [[ -z "$@" ]]
+	then
+		return 1
+	fi
+	echo "$(date)\n""$@\n" >> ~/notefile
+}
+alias notes="v ~/notefile"
+alias todo="v ~/todofile"
