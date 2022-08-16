@@ -30,8 +30,8 @@ source $HOME/.zsh_keys
 # aliases
 source $HOME/.zsh_aliases
 
-export EDITOR='vim'
-export VISUAL='vim'
+export EDITOR='nvim'
+export VISUAL='nvim'
 
 ###################
 # Dev environment #
