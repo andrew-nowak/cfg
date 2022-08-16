@@ -48,15 +48,10 @@ export VISUAL='vim'
 
 # Programming language version management
 
-# nvm
-export NVM_DIR="$HOME/.nvm"
-if [ -d "/usr/local/opt/nvm" ]; then
-  # Homebrew nvm recommends using the /usr/local/opt/nvm init script
-  . "/usr/local/opt/nvm/nvm.sh"
-elif [ -d "$HOME/.nvm" ]; then
-  # But if we're not using homebrew, we should use the real nvm script
-  . "$HOME/.nvm/nvm.sh"
-fi
+# fnm
+eval "$(fnm env --use-on-cd)"
+# not a perfect replacement, but close enough
+alias nvm=fnm
 
 # rbenv
 if [ -d "$HOME/.rbenv" ]; then
