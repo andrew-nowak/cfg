@@ -3,6 +3,7 @@
 
 [push]
 	default = simple
+	autoSetupRemote = true
 
 [core]
 	excludesfile = ~/.gitignore
