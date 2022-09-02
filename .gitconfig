@@ -25,6 +25,7 @@
 [alias]
 	aliases = config --get-regexp '^alias'
 	amend = commit --no-edit --amend
+	autosquash = !"f() { if ! git isclean; then echo \"Clean your checkout first!\"; exit 1; else git -c sequence.editor=: rebase --autosquash -i origin/$(git defaultbranch); fi; }; f"
 
 	b = branch -a
 	branches = branch -a
