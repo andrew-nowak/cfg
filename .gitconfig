@@ -63,6 +63,7 @@
 
 	pullf = !"f() { if ! git isclean; then echo \"Clean your checkout first!\"; exit 1; else git reset --hard origin/\"$(git thisbranch)\"; fi; }; f"
 
+	recent = !"f() { git reflog | egrep -io \"moving from ([^[:space:]]+)\" | awk '{ print $3 }' | awk ' !x[$0]++' | egrep -v '^[a-f0-9]{40}$' | head -n20; }; f"
 	redate = "!f() { if ! git staged; then echo \"It's dangerous to run that command with staged changes! Stash then try again\"; exit 1; else export TO_DATE=$(date -Iseconds); GIT_AUTHOR_DATE=$TO_DATE git commit --amend --allow-empty --no-edit --date $TO_DATE; fi; }; f"
 	remotes = remote -v
 	run = "!f() { ./.git/hooks/$1; }; f"
