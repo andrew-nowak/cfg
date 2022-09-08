@@ -19,7 +19,8 @@ setopt interactivecomments
 
 # End of lines added by compinstall
 
-export PATH="/usr/local/bin:$PATH"
+[ -d "/usr/local/bin" ] && export PATH="/usr/local/bin:$PATH"
+[ -d "/opt/homebrew/bin" ] && export PATH="/opt/homebrew/bin:$PATH"
 
 # prompt
 eval "$(starship init zsh)"
