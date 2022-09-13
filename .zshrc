@@ -84,7 +84,7 @@ if [[ "$(uname)" = "Darwin" ]]; then
       export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
       java -version
     else
-      /usr/libexec/java_home -V 2>&1 | grep x86_64 | awk '{$1=$1};1' | cut -d' ' -f1 -
+      /usr/libexec/java_home -V 2>&1 | grep $(uname -p) | awk '{$1=$1};1' | cut -d' ' -f1 -
     fi
   }
   DEFAULT_JDK=1.8
