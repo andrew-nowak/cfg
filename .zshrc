@@ -50,9 +50,54 @@ export VISUAL='nvim'
 # Programming language version management
 
 # fnm
-eval "$(fnm env --use-on-cd)"
-# not a perfect replacement, but close enough
-alias nvm=fnm
+if >/dev/null 2>/dev/null which fnm; then
+  eval "$(fnm env --use-on-cd)"
+  # not a perfect replacement, but close enough
+  alias nvm=fnm
+
+  fnmig_dir="$HOME/.fnmig-bin"
+
+  has_fnmig_dir() {
+    [ -d  ]
+  }
+
+  has_fnmig_alias() {
+    >/dev/null 2>/dev/null fnm exec --using=global node --version
+  }
+
+  if has_fnmig_dir; then
+    export PATH="$HOME/.fnmig-bin:$PATH"
+  fi
+
+  fnmig() {
+    if ! has_fnmig_dir; then
+      >&2 echo "fnmig: please create directory $fnmig_dir first!"
+      return 2
+    elif ! has_fnmig_alias; then
+      >&2 echo "fnmig: please setup 'global' alias in fnm first!"
+      >&2 echo '  eg. `fnm alias 16 global`'
+      return 3
+    fi
+
+    if [ "$1" = "updateto" -a -n "$2" ]; then
+      local packages=$(fnm exec --using=global npm list -g -p --depth=0 2>/dev/null | tail -n +2 | rev | cut -d '/' -f1 | rev | grep -v -e corepack -e npm)
+      echo $packages
+      fnm exec --using=$2 npm install -g ${=packages}
+      fnm alias $2 global
+      return 0
+    fi
+
+    fnm exec --using=global npm install -g $1
+
+    for e in $(fnm exec --using=global npm info --json $1 bin | jq -r 'keys[]'); do
+      echo >$fnmig_dir/$e '#!/bin/bash'
+      echo >>$fnmig_dir/$e 'fnm exec --using=global ${PATH%:*}/'"$e "'$@'
+      chmod +x $fnmig_dir/$e
+    done
+  }
+fi
+
+
 
 # rbenv
 if [ -d "$HOME/.rbenv" ]; then
