@@ -139,3 +139,8 @@ fi
 if 2>&1 >/dev/null which rg ; then
   export FZF_DEFAULT_COMMAND="rg --files"
 fi
+
+if [[ "$(uname)" = "Darwin" ]]; then
+  GPG_TTY=$(tty)
+  export GPG_TTY
+fi
