@@ -25,7 +25,7 @@ packer.startup(function(use)
 
   use { 'neovim/nvim-lspconfig',
     config = [[require 'config.lspconfig']],
-    run = [[npm install -g typescript-language-server@1.0.0]]
+    --run = [[npm install -g typescript-language-server@1.0.0]]
   }
 
   use { 'hrsh7th/nvim-cmp', config = [[require 'config.cmp']],

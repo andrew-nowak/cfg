@@ -51,7 +51,7 @@ export VISUAL='nvim'
 
 # fnm
 if >/dev/null 2>/dev/null which fnm; then
-  eval "$(fnm env --use-on-cd)"
+  eval "$(fnm env --use-on-cd --version-file-strategy recursive)"
   # not a perfect replacement, but close enough
   alias nvm=fnm
 
