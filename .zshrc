@@ -19,6 +19,9 @@ setopt interactivecomments
 
 # End of lines added by compinstall
 
+
+[ -d "$HOME/.config/zsh/functions" ] && export fpath=("$HOME/.config/zsh/functions" $fpath)
+
 [ -d "/usr/local/bin" ] && export PATH="/usr/local/bin:$PATH"
 [ -d "/opt/homebrew/bin" ] && export PATH="/opt/homebrew/bin:$PATH"
 
