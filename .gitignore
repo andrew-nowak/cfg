@@ -11,3 +11,6 @@ Desktop.ini
 
 metals
 .metals
+metals.sbt
+.bsp
+.bloop
