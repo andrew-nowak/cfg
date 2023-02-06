@@ -26,3 +26,5 @@ nvim_lsp.tsserver.setup {
 nvim_lsp.gopls.setup{}
 
 nvim_lsp.rust_analyzer.setup{}
+
+nvim_lsp.clangd.setup{}
