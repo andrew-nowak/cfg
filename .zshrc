@@ -19,6 +19,7 @@ setopt interactivecomments
 
 # End of lines added by compinstall
 
+export HOMEBREW_NO_ANALYTICS=1
 
 [ -d "$HOME/.config/zsh/functions" ] && export fpath=("$HOME/.config/zsh/functions" $fpath)
 
