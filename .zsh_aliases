@@ -99,3 +99,9 @@ note () {
 }
 alias notes="v ~/notefile"
 alias todo="v ~/todofile"
+
+if >/dev/null command -v exa; then
+  alias l="exa --long --header --git"
+fi
+
+alias sbtc="sbt -client"
