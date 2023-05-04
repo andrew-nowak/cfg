@@ -28,3 +28,12 @@ nvim_lsp.gopls.setup{}
 nvim_lsp.rust_analyzer.setup{}
 
 nvim_lsp.clangd.setup{}
+
+nvim_lsp.eslint.setup {
+  on_attach = function(client, bufnr)
+    vim.api.nvim_create_autocmd("BufWritePre", {
+      buffer = bufnr,
+      command = "EslintFixAll",
+    })
+  end
+}
