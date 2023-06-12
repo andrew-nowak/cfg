@@ -37,3 +37,5 @@ nvim_lsp.eslint.setup {
     })
   end
 }
+
+nvim_lsp.svelte.setup{}
