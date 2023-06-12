@@ -62,7 +62,7 @@ if >/dev/null 2>/dev/null which fnm; then
   fnmig_dir="$HOME/.fnmig-bin"
 
   has_fnmig_dir() {
-    [ -d  ]
+    [ -d "$fnmig_dir" ]
   }
 
   has_fnmig_alias() {
@@ -73,6 +73,16 @@ if >/dev/null 2>/dev/null which fnm; then
     export PATH="$HOME/.fnmig-bin:$PATH"
   fi
 
+  # fnmig: making `npm install -g` work with frequently switch node versions with `fnm`
+  #
+  # unfortunately some tools (IME, commonly lsp servers) recommend installing with `npm i -g`.
+  # but when using fnm, that will install with the _currently active_ npm. when you switch node versions
+  # (either by upgrading, or moving into a project that uses a different version) the tool is no longer
+  # visible.
+  # `fnmig` instead encourages creation of a "global" fnm alias, and then replaces `npm i -g`. When a
+  # package containing binaries is installed using `fnmig`, it will be installed using the "global" alias,
+  # and a short script for each binary will be dropped into $fnmig_dir, correctly calling `fnm exec` for
+  # the corresponding binary and forwarding args
   fnmig() {
     if ! has_fnmig_dir; then
       >&2 echo "fnmig: please create directory $fnmig_dir first!"
@@ -95,7 +105,7 @@ if >/dev/null 2>/dev/null which fnm; then
 
     for e in $(fnm exec --using=global npm info --json $1 bin | jq -r 'keys[]'); do
       echo >$fnmig_dir/$e '#!/bin/bash'
-      echo >>$fnmig_dir/$e 'fnm exec --using=global ${PATH%:*}/'"$e "'$@'
+      echo >>$fnmig_dir/$e "fnm exec --using=global $e "'$@'
       chmod +x $fnmig_dir/$e
     done
   }
