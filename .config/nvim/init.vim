@@ -73,9 +73,12 @@ inoremap jk <ESC>
 " switch between open buffers
 nnoremap <F7> :bp <CR>
 nnoremap <F8> :bn <CR>
-nnoremap <Leader>] :bn<CR>
-nnoremap <Leader>[ :bp<CR>
-nnoremap <Leader># :bd<CR>
+nnoremap <Leader>[ <C-O>
+nnoremap <Leader>] <C-I>
+nnoremap <Leader>bp :bp<CR>
+nnoremap <Leader>bn :bn<CR>
+"nnoremap <Leader>[ :bp<CR>
+"nnoremap <Leader># :bd<CR>
 
 nnoremap <Leader>at 0"=strftime('%a %d %b %Y')<CR>Pa<CR><ESC>O
 
@@ -85,3 +88,7 @@ if &term =~# '^screen'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
+autocmd VimLeave,VimSuspend * set guicursor=a:ver20
+autocmd VimResume * set guicursor&vim
+
+autocmd FileType xml nnoremap<buffer> <Leader>rf :%!xmllint --format %<CR>
