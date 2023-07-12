@@ -158,3 +158,12 @@ if [[ "$(uname)" = "Darwin" ]]; then
   GPG_TTY=$(tty)
   export GPG_TTY
 fi
+
+CDPATH="."
+if [[ "$(uname)" = "Darwin" && -d "$HOME/code" ]]; then
+  CDPATH="$CDPATH:$HOME/code"
+fi
+if [[ -d "$HOME/workspace" ]]; then
+  CDPATH="$CDPATH:$HOME/workspace"
+fi
+export CDPATH

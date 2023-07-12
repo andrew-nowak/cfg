@@ -67,7 +67,7 @@ httpd.serve_forever()
 EOP
 }
 
-alias rot13='tr 'A-Za-z' 'N-ZA-Mn-za-m' <<<'
+alias rot13="tr 'A-Za-z' 'N-ZA-Mn-za-m' <<<"
 
 function slesc {
   echo $1 | sed -e 's/\//\\\//g'
