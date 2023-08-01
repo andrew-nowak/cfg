@@ -167,3 +167,7 @@ if [[ -d "$HOME/workspace" ]]; then
   CDPATH="$CDPATH:$HOME/workspace"
 fi
 export CDPATH
+
+if [[ -r /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
