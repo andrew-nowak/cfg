@@ -88,7 +88,7 @@ if &term =~# '^screen'
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
 
-autocmd VimLeave,VimSuspend * set guicursor=a:ver20
-autocmd VimResume * set guicursor&vim
+"autocmd VimLeave,VimSuspend * set guicursor=a:ver20
+"autocmd VimResume * set guicursor&vim
 
 autocmd FileType xml nnoremap<buffer> <Leader>rf :%!xmllint --format %<CR>
