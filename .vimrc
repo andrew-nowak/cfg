@@ -1,54 +1,10 @@
 set nocompatible
 
-" don't have vim plug? get it here!
-if empty(glob('~/.vim/autoload/plug.vim')) && !&diff
-  silent !curl -fLo ~/.vim/autoload/plug.vim --create-dirs
-    \ https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  autocmd VimEnter * PlugInstall --sync | source $MYVIMRC
-endif
-
-" do not load plugins when vimdiffing
-if filereadable(expand("~/.vim/autoload/plug.vim")) && !&diff
-  call plug#begin("~/.vim/plugged")
-
-  Plug 'scrooloose/nerdtree'
-  Plug 'scrooloose/nerdcommenter'
-  Plug 'fidian/hexmode'
-  Plug 'airblade/vim-gitgutter'
-  Plug 'ntpeters/vim-better-whitespace'
-  Plug 'editorconfig/editorconfig-vim'
-  Plug 'tpope/vim-surround'
-  Plug 'tpope/vim-dispatch'
-  Plug 'junegunn/fzf.vim'
-
-  " Syntax plugins
-  Plug 'tpope/vim-cucumber'
-  Plug 'pangloss/vim-javascript'
-  Plug 'mxw/vim-jsx'
-
-  " colourscheme
-  Plug 'morhetz/gruvbox'
-
-  call plug#end()
-
-  """""""""""""""""""""""""
-  ""                     ""
-  ""    PLUGIN CONFIG    ""
-  ""                     ""
-  """""""""""""""""""""""""
-
-  " Colours
-  set termguicolors
-  set background=dark
-  " stop vim erasing background colour
-  let &t_ut=''
-  colorscheme gruvbox
-
-endif
+" Colours
+set termguicolors
+let &t_ut=''
 
 syntax enable
-
-let mapleader = " "
 
 " Default indenting to 2 spaces
 set expandtab
@@ -80,7 +36,7 @@ set showmode
 set showmatch
 " Show completion options in the menu
 set wildmenu
-" Ignores case when searching is search string is lowercase
+" Ignores case when searching and search string is lowercase
 set ignorecase
 set smartcase
 set incsearch
@@ -104,25 +60,19 @@ set guifont=mononoki\ 10
 " no bells
 set noeb vb t_vb=
 
-" move up/down respecting wrapping
-nnoremap j gj
-nnoremap k gk
-
-" leave insert mode on jj
-inoremap jj <ESC>
-
-" switch between open buffers
-map <F7> :bp <CR>
-map <F8> :bn <CR>
-map <Leader>] :bn <CR>
-map <Leader>[ :bp <CR>
-
-nnoremap <Leader>h :set hlsearch!<CR>
-nnoremap <Leader>d :execute 'NERDTree ' . getcwd()<CR>
-nnoremap <Leader>D :NERDTreeClose<CR>
-
 " display colours correctly, even in tmux
 if &term =~# '^screen'
     let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
     let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 endif
+
+"""" OPTIONAL CONFIGS """"
+"
+" move up/down respecting wrapping
+"nnoremap j gj
+"nnoremap k gk
+"
+"" leave insert mode on jj
+"inoremap jj <ESC>
+"" or jk
+"inoremap jk <ESC>
