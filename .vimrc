@@ -1,6 +1,7 @@
 set nocompatible
 
 " Colours
+colorscheme desert
 set termguicolors
 let &t_ut=''
 
