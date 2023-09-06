@@ -39,3 +39,7 @@ nvim_lsp.eslint.setup {
 }
 
 nvim_lsp.svelte.setup{}
+
+nvim_lsp.hls.setup {
+  filetypes = {'haskell', 'lhaskell', 'cabal' }
+}

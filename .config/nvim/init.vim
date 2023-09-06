@@ -1,6 +1,7 @@
 set nocompatible
 
 let mapleader = " "
+let maplocalleader = " "
 
 if has('nvim')
   :lua require('plugins')

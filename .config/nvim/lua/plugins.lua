@@ -47,7 +47,10 @@ packer.startup(function(use)
     config = [[require('gitsigns').setup { current_line_blame = true }]] }
 
   use { 'nvim-treesitter/nvim-treesitter',
-    run = function() require('nvim-treesitter.install').update({ with_sync = true }) end,
+    run = function()
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
     config = [[require 'config.treesitter']]
   }
 

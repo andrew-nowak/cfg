@@ -129,6 +129,10 @@ if [ -d "$HOME/code/go/bin" ]; then
   export GOPATH="$HOME/code/go"
 fi
 
+if [ -d "$HOME/.ghcup/bin" ]; then
+  export PATH="$HOME/.ghcup/bin:$PATH"
+fi
+
 # Put random / non-system managed binaries in ~/bin
 # THIS IS POTENTIALLY DANGEROUS but also really useful 🤷
 #export PATH="$HOME/bin:$PATH"
