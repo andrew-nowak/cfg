@@ -43,3 +43,5 @@ nvim_lsp.svelte.setup{}
 nvim_lsp.hls.setup {
   filetypes = {'haskell', 'lhaskell', 'cabal' }
 }
+
+nvim_lsp.ocamllsp.setup{}

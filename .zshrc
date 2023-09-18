@@ -133,6 +133,9 @@ if [ -d "$HOME/.ghcup/bin" ]; then
   export PATH="$HOME/.ghcup/bin:$PATH"
 fi
 
+# opam configuration
+[[ ! -r "$HOME"/.opam/opam-init/init.zsh ]] || source "$HOME"/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
+
 # Put random / non-system managed binaries in ~/bin
 # THIS IS POTENTIALLY DANGEROUS but also really useful 🤷
 #export PATH="$HOME/bin:$PATH"
