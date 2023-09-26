@@ -47,6 +47,9 @@ disabled = true
 [docker_context]
 disabled = true
 
+[gcloud]
+disabled = true
+
 [custom.cfg]
 when = "[[ -n $(git --git-dir=$HOME/.cfg --work-tree=$HOME status --porcelain=v2) ]]"
 command = "echo Config files need committing!"
