@@ -16,7 +16,7 @@ style = "bold blue"
 format = "[$time]($style) "
 
 [java]
-disabled = true
+disabled = false
 
 [nodejs]
 disabled = true
@@ -53,3 +53,6 @@ disabled = true
 [custom.cfg]
 when = "[[ -n $(git --git-dir=$HOME/.cfg --work-tree=$HOME status --porcelain=v2) ]]"
 command = "echo Config files need committing!"
+
+[package]
+disabled = true
