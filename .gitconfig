@@ -33,6 +33,7 @@
 	branches = branch -a
 
 	co = checkout
+	coauth = !"f() { args=(); names=\"$(git shortlog --summary --numbered --email --all | rg -S '^\\s+[0-9]+\\s+' -r 'Co-authored-by: ')\" trail=\"$(fzf <<< \"$names\")\"; while [[ \"$?\" = 0 ]]; do args+=( --trailer \"$trail\" ) ; trail=\"$(fzf <<< \"$names\")\"; done; git commit \"${args[@]}\" \"$@\"; }; f"
 
 	d = diff
 	da = diff HEAD
