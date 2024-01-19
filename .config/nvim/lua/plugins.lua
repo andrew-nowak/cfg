@@ -15,7 +15,7 @@ packer.startup(function(use)
   --  source setup-fzf.vim
   --]] end }
 
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.0',
+  use { 'nvim-telescope/telescope.nvim', tag = '0.1.5',
     requires = {
       'nvim-lua/plenary.nvim',
       { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
