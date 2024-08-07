@@ -33,6 +33,7 @@
 	branches = branch -a
 
 	co = checkout
+	cor = !"f() { local branches branch; branches=$(git reflog show --pretty=format:'%gs ~ %gd' --date=relative | grep 'checkout:' | grep -oE '[^ ]+ ~ .*' | awk -F~ '!seen[$1]++' | head -n 20 | awk  -F' ~ HEAD@{' '{printf(\" %s: %s\\n\", substr($2, 1, length($2)-1), $1)}' | nl | sort -n | cut -f 2-) && branch=$(echo \"$branches\" | fzf-tmux -d $(( 2 + $(wc -l <<< \"$branches\") )) +m) && git checkout $(echo \"$branch\" | sed \"s/.* //\" | sed \"s#remotes/[^/]*/##\"); }; f"
 	coauth = !"f() { args=(); names=\"$(git shortlog --summary --numbered --email --all | rg -S '^\\s+[0-9]+\\s+' -r 'Co-authored-by: ')\" trail=\"$(fzf <<< \"$names\")\"; while [[ \"$?\" = 0 ]]; do args+=( --trailer \"$trail\" ) ; trail=\"$(fzf <<< \"$names\")\"; done; git commit \"${args[@]}\" \"$@\"; }; f"
 
 	d = diff
