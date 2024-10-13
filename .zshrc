@@ -123,9 +123,9 @@ if [ -d "$HOME/.cargo" -a -e "$HOME/.cargo/env" ]; then
   . $HOME/.cargo/env
 fi
 
-if [ -d "$HOME/code/go/bin" ]; then
-  export PATH="$HOME/code/go/bin:$PATH"
-  export GOPATH="$HOME/code/go"
+if [ -d "$HOME/go/bin" ]; then
+  export PATH="$HOME/go/bin:$PATH"
+  export GOPATH="$HOME/go"
 fi
 
 if [ -d "$HOME/.ghcup/bin" ]; then
@@ -144,15 +144,17 @@ compinit
 
 if [[ "$(uname)" = "Darwin" ]]; then
   jdk() {
+    local list="$(2>&1 >&- >/dev/null /usr/libexec/java_home -V -a arm64 | tail -n+2 | awk '{$1=$1};1'  | nl -w2 -s '  ')"
     if [[ -n "$1" ]]; then
-      version=$1
-      export JAVA_HOME=$(/usr/libexec/java_home -v"$version");
+      local selection="$1"
+      export JAVA_HOME="$(sed "${selection}q;d" <<< "$list" | rev | cut -d ' ' -f 1 | rev)"
       java -version
     else
-      /usr/libexec/java_home -V 2>&1 | grep $(uname -p) | awk '{$1=$1};1' | cut -d' ' -f1 -
+      #/usr/libexec/java_home -V -a $(uname -m) 2>&1 | awk '{$1=$1};1' | cut -d' ' -f1 -
+      echo $list
     fi
   }
-  DEFAULT_JDK=1.8
+  DEFAULT_JDK=11
   export JAVA_HOME="$(/usr/libexec/java_home -v$DEFAULT_JDK)"
 fi
 
