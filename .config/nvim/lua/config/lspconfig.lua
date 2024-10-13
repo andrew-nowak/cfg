@@ -17,7 +17,7 @@ end
 
 -- TypeScript
 --TODO 
-nvim_lsp.tsserver.setup {
+nvim_lsp.ts_ls.setup {
   on_attach = on_attach,
   root_dir = nvim_lsp.util.root_pattern("package.json"),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
