@@ -19,8 +19,15 @@ end
 --TODO 
 nvim_lsp.tsserver.setup {
   on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
-  cmd = { "typescript-language-server", "--stdio" }
+  cmd = { "typescript-language-server", "--stdio" },
+  single_file_support = false
+}
+
+nvim_lsp.denols.setup {
+  on_attach = on_attach,
+  root_dir = nvim_lsp.util.root_pattern("deno.json", "deno.jsonc"),
 }
 
 nvim_lsp.gopls.setup{}
@@ -35,7 +42,8 @@ nvim_lsp.eslint.setup {
       buffer = bufnr,
       command = "EslintFixAll",
     })
-  end
+  end,
+  root_dir = nvim_lsp.util.root_pattern("package.json"),
 }
 
 nvim_lsp.svelte.setup{}
