@@ -81,6 +81,10 @@ nnoremap <Leader>bn :bn<CR>
 "nnoremap <Leader>[ :bp<CR>
 "nnoremap <Leader># :bd<CR>
 
+" toggle comments
+nmap <Leader>c gcc
+vmap <Leader>c gc
+
 nnoremap <Leader>at 0"=strftime('%a %d %b %Y')<CR>Pa<CR><ESC>O
 
 " display colours correctly, even in tmux
