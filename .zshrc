@@ -142,7 +142,21 @@ fi
 autoload -Uz compinit
 compinit
 
-if [[ "$(uname)" = "Darwin" ]]; then
+if [[ "$(uname)" = "Darwin" ]] && 2>&1 >/dev/null which jvmvj ; then
+  jdk() {
+    if [[ -n "$1" ]]; then
+      export JAVA_HOME="$(jvmvj $1)"
+    else
+      jvmvj
+    fi
+  }
+  jdk 17
+  autoload -U add-zsh-hook
+  _jvmvj_cd_hook() {
+    export JAVA_HOME="$(jvmvj use)"
+  }
+  add-zsh-hook chpwd _jvmvj_cd_hook
+elif [[ "$(uname)" = "Darwin" ]]; then
   jdk() {
     local list="$(2>&1 >&- >/dev/null /usr/libexec/java_home -V -a arm64 | tail -n+2 | awk '{$1=$1};1'  | nl -w2 -s '  ')"
     if [[ -n "$1" ]]; then
