@@ -143,33 +143,24 @@ autoload -Uz compinit
 compinit
 
 if [[ "$(uname)" = "Darwin" ]] && 2>&1 >/dev/null which jvmvj ; then
-  jdk() {
-    if [[ -n "$1" ]]; then
-      export JAVA_HOME="$(jvmvj $1)"
-    else
-      jvmvj
-    fi
-  }
+  eval "$(jvmvj init)"
   jdk 17
-  autoload -U add-zsh-hook
-  _jvmvj_cd_hook() {
-    export JAVA_HOME="$(jvmvj use)"
-  }
-  add-zsh-hook chpwd _jvmvj_cd_hook
 elif [[ "$(uname)" = "Darwin" ]]; then
-  jdk() {
-    local list="$(2>&1 >&- >/dev/null /usr/libexec/java_home -V -a arm64 | tail -n+2 | awk '{$1=$1};1'  | nl -w2 -s '  ')"
-    if [[ -n "$1" ]]; then
-      local selection="$1"
-      export JAVA_HOME="$(sed "${selection}q;d" <<< "$list" | rev | cut -d ' ' -f 1 | rev)"
-      java -version
-    else
-      #/usr/libexec/java_home -V -a $(uname -m) 2>&1 | awk '{$1=$1};1' | cut -d' ' -f1 -
-      echo $list
-    fi
-  }
-  DEFAULT_JDK=11
-  export JAVA_HOME="$(/usr/libexec/java_home -v$DEFAULT_JDK)"
+  echo "No jvmvj installed :("
+  echo "Go get it: https://github.com/andrew-nowak/jvmvj"
+  # jdk() {
+  #   local list="$(2>&1 >&- >/dev/null /usr/libexec/java_home -V -a arm64 | tail -n+2 | awk '{$1=$1};1'  | nl -w2 -s '  ')"
+  #   if [[ -n "$1" ]]; then
+  #     local selection="$1"
+  #     export JAVA_HOME="$(sed "${selection}q;d" <<< "$list" | rev | cut -d ' ' -f 1 | rev)"
+  #     java -version
+  #   else
+  #     #/usr/libexec/java_home -V -a $(uname -m) 2>&1 | awk '{$1=$1};1' | cut -d' ' -f1 -
+  #     echo $list
+  #   fi
+  # }
+  # DEFAULT_JDK=11
+  # export JAVA_HOME="$(/usr/libexec/java_home -v$DEFAULT_JDK)"
 fi
 
 if 2>&1 >/dev/null which rg ; then
