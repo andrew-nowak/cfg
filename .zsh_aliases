@@ -127,6 +127,6 @@ sbtc() {
   sbt -client "$args"
 }
 
-pwgen() {
-  LC_ALL=C tr -dc 'A-Za-z0-9!"#$%&()*+,/:;<=>?@[]^_{|}~' < /dev/urandom | head -c ${1:-20}
+rand_str() {
+  openssl rand 200 | LC_ALL=C tr -dc 'A-Za-z0-9!"#$%&()*+,/:;<=>?@[]^_{|}~' | head -c ${1:-20}
 }
