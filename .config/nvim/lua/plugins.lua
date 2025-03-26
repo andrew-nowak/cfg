@@ -43,7 +43,7 @@ packer.startup(function(use)
     }
   }
 
-  use { 'lewis6991/gitsigns.nvim', tag = 'tags/release',
+  use { 'lewis6991/gitsigns.nvim', tag = 'release',
     config = [[require('gitsigns').setup { current_line_blame = true }]] }
 
   use { 'nvim-treesitter/nvim-treesitter',
