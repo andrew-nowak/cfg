@@ -143,7 +143,7 @@ autoload -Uz compinit
 compinit
 
 if [[ "$(uname)" = "Darwin" ]] && 2>&1 >/dev/null which jvmvj ; then
-  eval "$(jvmvj init)"
+  eval "$(jvmvj init zsh)"
   jdk 17
 elif [[ "$(uname)" = "Darwin" ]]; then
   echo "No jvmvj installed :("
