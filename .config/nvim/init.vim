@@ -97,3 +97,13 @@ endif
 "autocmd VimResume * set guicursor&vim
 
 autocmd FileType xml nnoremap<buffer> <Leader>rf :%!xmllint --format %<CR>
+
+function! FirstAboveInTree()
+  let old_search = @/
+  let @/ = "^.\\{" . (col('.')-1) . "\\} "
+  normal! N
+  normal! j
+  let @/ = old_search
+endfunction
+
+nnoremap <Leader>tp :<C-U>call FirstAboveInTree()<CR>
