@@ -37,7 +37,8 @@ packer.startup(function(use)
   use { 'scalameta/nvim-metals', config = [[require 'config.metals']],
     requires = {
       'nvim-lua/plenary.nvim',
-      'hrsh7th/nvim-cmp'
+      'hrsh7th/nvim-cmp',
+      'j-hui/fidget.nvim'
     }
   }
 
