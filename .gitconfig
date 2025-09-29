@@ -92,3 +92,5 @@
 	defaultBranch = main
 [rerere]
 	enabled = true
+[merge]
+	conflictStyle = zdiff3
