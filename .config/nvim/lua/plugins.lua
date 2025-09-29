@@ -21,7 +21,7 @@ packer.startup(function(use)
     config = [[require 'config.telescope']]
   }
 
-  use { 'neovim/nvim-lspconfig',
+  use { 'neovim/nvim-lspconfig', tag = 'v2.4.0', -- TODO unpin
     config = [[require 'config.lspconfig']],
     --run = [[npm install -g typescript-language-server@1.0.0]]
   }
