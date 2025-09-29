@@ -9,8 +9,6 @@ vim.cmd [[packadd packer.nvim]]
 packer.startup(function(use)
   use 'wbthomason/packer.nvim'
 
-  use { 'morhetz/gruvbox', config = [[require 'config.colourscheme']] }
-
   --use { 'junegunn/fzf.vim', requires = {'junegunn/fzf'}, config = function() vim.cmd [[
   --  source setup-fzf.vim
   --]] end }
