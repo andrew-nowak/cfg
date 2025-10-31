@@ -18,7 +18,7 @@ end
 --TODO 
 vim.lsp.config('ts_ls', {
   on_attach = on_attach,
-  root_dir = vim.fs.root("package.json"),
+  root_dir = vim.fs.root(0, "package.json"),
   filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
   cmd = { "typescript-language-server", "--stdio" },
   single_file_support = false
@@ -36,7 +36,7 @@ vim.lsp.config('eslint', {
       command = "EslintFixAll",
     })
   end,
-  root_dir = vim.fs.root("package.json"),
+  root_dir = vim.fs.root(0, "package.json"),
 })
 vim.lsp.enable('eslint')
 
