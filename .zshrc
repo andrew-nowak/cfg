@@ -132,6 +132,10 @@ if [ -d "$HOME/.ghcup/bin" ]; then
   export PATH="$HOME/.ghcup/bin:$PATH"
 fi
 
+if [ -d "$HOME/.cabal/bin" ]; then
+  export PATH="$HOME/.cabal/bin:$PATH"
+fi
+
 # opam configuration
 [[ ! -r "$HOME"/.opam/opam-init/init.zsh ]] || source "$HOME"/.opam/opam-init/init.zsh  > /dev/null 2> /dev/null
 
