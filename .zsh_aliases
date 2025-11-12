@@ -26,13 +26,54 @@ alias alert="osascript -e 'display notification \"Your thing is done\" with titl
 
 alias stripcol="perl -pi -e 's/\\x1b\\[[0-9;]*m//g'"
 
-npu() {
-  [ -f .nvmrc ] && nvm exec npm "$@" || npm "$@"
+_guess_js_pm() {
+  if [ -r package-lock.json ]; then
+    echo "Try using 'npm' instead."
+  elif [ -r yarn.lock ]; then
+    echo "Try using 'yarn' instead."
+  elif [ -r pnpm-lock.yaml ]; then
+    echo "Try using 'pnpm' instead."
+  elif [ -r deno.lock ]; then
+    echo "Try using 'deno' instead."
+  elif [ -r bun.lockb ]; then
+    echo "Try using 'bun' instead."
+  else
+    echo "(Couldn't detect a JS package manager. Are you in a JS project root directory?)"
+  fi
 }
 
-nodu() {
-  [ -f .nvmrc ] && nvm exec node "$@" || node "$@"
+_safe_npm() {
+  if [ ! -r package-lock.json ]; then
+    echo "Are you sure? There's no package-lock.json here."
+    _guess_js_pm
+    echo "(Rerun with \\\npm to override)"
+    return 1
+  fi
+  npm $@
 }
+alias npm=_safe_npm
+
+_safe_yarn() {
+  if [ ! -r yarn.lock ]; then
+    echo "Are you sure? There's no yarn.lock here."
+    _guess_js_pm
+    echo "(Or rerun with \\\yarn to override)"
+    return 1
+  fi
+  yarn $@
+}
+alias yarn=_safe_yarn
+
+_safe_pnpm() {
+  if [ ! -r pnpm-lock.yaml ]; then
+    echo "Are you sure? There's no pnpm-lock.yaml here."
+    _guess_js_pm
+    echo "(Or rerun with \\\pnpm to override)"
+    return 1
+  fi
+  pnpm $@
+}
+alias pnpm=_safe_pnpm
 
 bs() {
   BROWSERS="firefox:safari:Google Chrome:opera"
