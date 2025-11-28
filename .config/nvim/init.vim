@@ -4,7 +4,7 @@ let mapleader = " "
 let maplocalleader = " "
 
 if has('nvim')
-  :lua require('plugins')
+  :lua require('config.lazy')
 endif
 
 syntax enable

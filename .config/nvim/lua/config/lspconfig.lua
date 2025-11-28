@@ -29,14 +29,17 @@ vim.lsp.enable('gopls')
 
 vim.lsp.enable('rust_analyzer')
 
-vim.lsp.config('eslint', {
+local base_on_attach = vim.lsp.config.eslint.on_attach
+vim.lsp.config("eslint", {
   on_attach = function(client, bufnr)
+    if not base_on_attach then return end
+
+    base_on_attach(client, bufnr)
     vim.api.nvim_create_autocmd("BufWritePre", {
       buffer = bufnr,
-      command = "EslintFixAll",
+      command = "LspEslintFixAll",
     })
   end,
-  root_dir = vim.fs.root(0, "package.json"),
 })
 vim.lsp.enable('eslint')
 

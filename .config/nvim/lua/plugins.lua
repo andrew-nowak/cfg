@@ -1,51 +1,56 @@
-local status, packer = pcall(require, "packer")
-if (not status) then
-  print("Packer is not installed")
-  return
-end
+return {
 
-vim.cmd [[packadd packer.nvim]]
-
-packer.startup(function(use)
-  use 'wbthomason/packer.nvim'
-
-  use { 'nvim-telescope/telescope.nvim', tag = '0.1.5',
-    requires = {
+  { 'nvim-telescope/telescope.nvim', tag = '0.1.5',
+    dependencies = {
       'nvim-lua/plenary.nvim',
-      { 'nvim-telescope/telescope-fzf-native.nvim', run = 'make' }
+      { 'nvim-telescope/telescope-fzf-native.nvim', build = 'make' }
     },
-    config = [[require 'config.telescope']]
-  }
+    config = function() 
+      require 'config.telescope'
+    end
+  },
 
-  use { 'neovim/nvim-lspconfig', tag = 'v2.4.0', -- TODO unpin
-    config = [[require 'config.lspconfig']],
-  }
+  { 'neovim/nvim-lspconfig',
+    config = function()
+      require 'config.lspconfig'
+    end
+  },
 
-  use { 'hrsh7th/nvim-cmp', config = [[require 'config.cmp']],
-    requires = {
+  { 'hrsh7th/nvim-cmp',
+    dependencies = {
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-vsnip',
       'hrsh7th/vim-vsnip'
-    }
-  }
+    },
+    config = function()
+      require 'config.cmp'
+    end
+  },
 
-  use { 'scalameta/nvim-metals', config = [[require 'config.metals']],
-    requires = {
+  { 'scalameta/nvim-metals',
+    config = function() require 'config.metals' end,
+    dependencies = {
       'nvim-lua/plenary.nvim',
       'hrsh7th/nvim-cmp',
       'j-hui/fidget.nvim'
     }
-  }
+  },
 
-  use { 'lewis6991/gitsigns.nvim', tag = 'release',
-    config = [[require('gitsigns').setup { current_line_blame = true }]] }
+  { 'lewis6991/gitsigns.nvim',
+    tag = 'release',
+    config = function() 
+      require('gitsigns').setup { current_line_blame = true }
+    end
+  },
 
-  use { 'nvim-treesitter/nvim-treesitter',
+  { 'nvim-treesitter/nvim-treesitter',
     run = function()
       local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
       ts_update()
     end,
-    config = [[require 'config.treesitter']]
+    config = function()
+      require 'config.treesitter'
+    end
   }
 
-end)
+};
