@@ -150,16 +150,6 @@ fi
 
 alias pregpg="echo 123 | gpg --clearsign -o -"
 
-
-sbt() {
-  if 2>/dev/null >/dev/null stat ./build.sbt || [[ "$1" = "new" ]] ; then
-    command sbt "$@"
-  else
-    echo "this doesn't look like an sbt project. are you in the right dir?"
-    return 1
-  fi
-}
-
 sbtc() {
   local args=";"
   for x in $@; do
