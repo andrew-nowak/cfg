@@ -14,3 +14,5 @@ metals
 metals.sbt
 .bsp
 .bloop
+
+x-nwk-*
