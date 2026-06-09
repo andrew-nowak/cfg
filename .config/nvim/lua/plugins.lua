@@ -1,5 +1,12 @@
 return {
 
+  { "junegunn/goyo.vim",
+    dependencies = { "junegunn/limelight.vim" },
+    keys = {
+      { "<leader>ps", "<cmd>Goyo<cr><cmd>Limelight!!<cr>", desc = "Turn on prose mode" },
+    }
+  },
+
   {
     "NeogitOrg/neogit",
     lazy = true,
