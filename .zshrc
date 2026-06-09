@@ -111,6 +111,16 @@ if >/dev/null 2>/dev/null which fnm; then
   }
 fi
 
+# everything
+
+if 2>&1 >/dev/null which mise; then
+  miseon() {
+    eval "$(mise activate zsh)"
+  }
+  miseoff() {
+    mise deactivate
+  }
+fi
 
 
 # rbenv
@@ -152,19 +162,6 @@ if [[ "$(uname)" = "Darwin" ]] && 2>&1 >/dev/null which jvmvj ; then
 elif [[ "$(uname)" = "Darwin" ]]; then
   echo "No jvmvj installed :("
   echo "Go get it: https://github.com/andrew-nowak/jvmvj"
-  # jdk() {
-  #   local list="$(2>&1 >&- >/dev/null /usr/libexec/java_home -V -a arm64 | tail -n+2 | awk '{$1=$1};1'  | nl -w2 -s '  ')"
-  #   if [[ -n "$1" ]]; then
-  #     local selection="$1"
-  #     export JAVA_HOME="$(sed "${selection}q;d" <<< "$list" | rev | cut -d ' ' -f 1 | rev)"
-  #     java -version
-  #   else
-  #     #/usr/libexec/java_home -V -a $(uname -m) 2>&1 | awk '{$1=$1};1' | cut -d' ' -f1 -
-  #     echo $list
-  #   fi
-  # }
-  # DEFAULT_JDK=11
-  # export JAVA_HOME="$(/usr/libexec/java_home -v$DEFAULT_JDK)"
 fi
 
 if 2>&1 >/dev/null which rg ; then
