@@ -131,7 +131,11 @@ f () {
 
 [ -e "$HOME/.config/awesome/rc.lua" ] && alias awcon="vim $HOME/.config/awesome/rc.lua"
 
-alias cfg='git --git-dir=$HOME/.cfg --work-tree=$HOME'
+if [ -d "$HOME/.cfg/.git" ]; then
+  alias cfg='git --git-dir=$HOME/.cfg/.git --work-tree=$HOME'
+else
+  alias cfg='git --git-dir=$HOME/.cfg --work-tree=$HOME'
+fi
 alias sc="jq .scripts package.json"
 
 note () {
