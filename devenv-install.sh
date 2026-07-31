@@ -17,7 +17,7 @@ config checkout
 config config status.showUntrackedFiles no
 
 sudo apt update
-sudo apt install -y neovim fzf ripgrep starship
+sudo apt install -y neovim fzf ripgrep starship tree-sitter-cli
 
 sudo chsh -s /usr/bin/zsh
 
