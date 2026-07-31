@@ -46,7 +46,7 @@
 	fixpl = !npm install --package-lock-only
 	fixpush = !git remote set-url --push origin $(git remote get-url origin)
 
-	isclean = !"[[ -z \"$(git status --porcelain)\" ]]"
+	isclean = !"test -z \"$(git status --porcelain)\""
 
 	last = log --no-decorate -n 1
 	lg = !git lg1
