@@ -155,6 +155,10 @@ fi
 # THIS IS POTENTIALLY DANGEROUS but also really useful 🤷
 #export PATH="$HOME/bin:$PATH"
 
+if 2>&1 >/dev/null which docker; then
+  docker completion zsh > ~/.config/zsh/functions/_docker
+fi
+
 autoload -Uz compinit
 compinit
 
