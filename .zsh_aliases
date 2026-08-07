@@ -165,3 +165,29 @@ sbtc() {
 rand_str() {
   openssl rand 200 | LC_ALL=C tr -dc 'A-Za-z0-9!"#$%&()*+,/:;<=>?@[]^_{|}~' | head -c ${1:-20}
 }
+
+
+dc() {
+  # intentionally relative. If not in a project with devcontainer setup, do nothing
+  # TODO handle upward recursive searching?
+  local dcpath=".devcontainer/user/devcontainer.json"
+  if [ "$USER" = "vscode" ]; then
+    >&2 echo "I think you're already inside a devcontainer! Let's not go recursing"
+    return 1
+  fi
+  if ! [ -f $dcpath ]; then
+    >&2 echo "No user devcontainer file found. Is this project set up? Need to devenv generate?"
+    return 1
+  fi
+
+  devcontainer up --config $dcpath
+  printf '=%.0s' {1..$(tput cols)}; printf '\n'
+  echo " --- Entering devcontainer ---"
+  echo
+  devcontainer exec --config $dcpath zsh
+  printf '=%.0s' {1..$(tput cols)}; printf '\n'
+  echo " --- Leaving devcontainer ---"
+  echo
+
+  echo "bye."
+}

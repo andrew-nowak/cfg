@@ -157,6 +157,7 @@ fi
 
 if 2>&1 >/dev/null which docker; then
   docker completion zsh > ~/.config/zsh/functions/_docker
+  export DOCKER_CLI_HINTS=false
 fi
 
 autoload -Uz compinit
