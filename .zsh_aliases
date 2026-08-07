@@ -180,6 +180,12 @@ dc() {
     return 1
   fi
 
+  if [ "$1" = rebuild ]; then
+    local cid="$(devcontainer up --config $dcpath | jq -r '.containerId')"
+    >&2 echo "Rebuilding container $cid..."
+    docker rm -f "$cid"
+  fi
+
   devcontainer up --config $dcpath
   printf '=%.0s' {1..$(tput cols)}; printf '\n'
   echo " --- Entering devcontainer ---"
