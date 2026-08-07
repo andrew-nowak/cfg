@@ -180,7 +180,7 @@ dc() {
     return 1
   fi
 
-  if [ "$1" = rebuild ]; then
+  if [ "$1" = r -o "$1" = rebuild ]; then
     local cid="$(devcontainer up --config $dcpath | jq -r '.containerId')"
     >&2 echo "Rebuilding container $cid..."
     docker rm -f "$cid"
