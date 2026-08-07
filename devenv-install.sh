@@ -1,6 +1,8 @@
 #!/bin/bash
 
-/usr/bin/git clone --bare https://github.com/andrew-nowak/cfg $HOME/.cfg
+set -uo pipefail
+
+/usr/bin/git clone --bare $HOME/.cfg-installer $HOME/.cfg
 
 function config {
    /usr/bin/git --git-dir=$HOME/.cfg --work-tree=$HOME $@
@@ -13,6 +15,9 @@ if [ $? = 0 ]; then
     echo "Backing up pre-existing dot files.";
     config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv $HOME/{} $HOME/.config-backup/{}
 fi
+
+set -e
+
 config checkout
 config config status.showUntrackedFiles no
 
