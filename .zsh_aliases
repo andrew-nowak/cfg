@@ -166,13 +166,25 @@ rand_str() {
   openssl rand 200 | LC_ALL=C tr -dc 'A-Za-z0-9!"#$%&()*+,/:;<=>?@[]^_{|}~' | head -c ${1:-20}
 }
 
+_dc_is_up() {
+  # intentionally relative. If not in a project with devcontainer setup, do nothing
+  # TODO handle upward recursive searching?
+  local dcpath=".devcontainer/user/devcontainer.json"
+  devcontainer exec --config $dcpath true  >/dev/null 2>&1
+  return $?
+}
 
 dc() {
+  # Usage:
+  #   dc                Create devcontainer if necessary, then connect
+  #   dc [r|rebuild]    Rebuild devcontainer if running
+  #   dc [d|delete]     Turn off running devcontainer, if exists
+
   # intentionally relative. If not in a project with devcontainer setup, do nothing
   # TODO handle upward recursive searching?
   local dcpath=".devcontainer/user/devcontainer.json"
   if [ "$USER" = "vscode" ]; then
-    >&2 echo "I think you're already inside a devcontainer! Let's not go recursing"
+    >&2 echo "I think you're already inside a devcontainer! Let's not go recursing..."
     return 1
   fi
   if ! [ -f $dcpath ]; then
@@ -181,9 +193,21 @@ dc() {
   fi
 
   if [ "$1" = r -o "$1" = rebuild ]; then
+    if _dc_is_up; then
+      local cid="$(devcontainer up --config $dcpath | jq -r '.containerId')"
+      >&2 echo "Rebuilding container $cid..."
+      docker rm -f "$cid"
+    fi
+  fi
+  if [ "$1" = d -o "$1" = delete ]; then
+    if ! _dc_is_up; then
+      >&2 echo "There doesn't appear to be a container running, so nothing to do..."
+      return 1
+    fi
     local cid="$(devcontainer up --config $dcpath | jq -r '.containerId')"
-    >&2 echo "Rebuilding container $cid..."
+    >&2 echo "Removing container $cid..."
     docker rm -f "$cid"
+    return $?
   fi
 
   devcontainer up --config $dcpath
