@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mise exec node@24 -- npx --package=vscode-langservers-extracted@4.10.0 -- vscode-eslint-language-server $@

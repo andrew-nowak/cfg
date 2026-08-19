@@ -1,0 +1,3 @@
+#!/bin/bash
+
+mise exec node@24 -- npx typescript-language-server@5.3.0 $@
