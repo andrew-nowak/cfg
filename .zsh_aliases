@@ -175,10 +175,15 @@ _dc_is_up() {
 }
 
 dc() {
-  # Usage:
-  #   dc                Create devcontainer if necessary, then connect
-  #   dc [r|rebuild]    Rebuild devcontainer if running
-  #   dc [d|delete]     Turn off running devcontainer, if exists
+  if [ "$1" = "h" -o "$1" = "help" ]; then
+    >&2 echo "Usage:"
+    >&2 echo "  dc                Create devcontainer if necessary, then connect"
+    >&2 echo "  dc [r|rebuild]    Rebuild devcontainer if running, then connect"
+    >&2 echo "  dc [d|delete]     Turn off running devcontainer, if exists"
+    >&2 echo "  dc [h|help]       Print this usage text"
+    >&2 echo
+    return 1
+  fi
 
   # intentionally relative. If not in a project with devcontainer setup, do nothing
   # TODO handle upward recursive searching?
