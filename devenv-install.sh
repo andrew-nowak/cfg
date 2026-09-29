@@ -24,6 +24,10 @@ config config status.showUntrackedFiles no
 sudo apt update
 sudo apt install -y neovim fzf ripgrep starship tree-sitter-cli
 
+# coursier doesn't have a usable ubuntu package atm :(
+curl -fLso- 'https://github.com/VirtusLab/coursier-m1/releases/download/v2.1.24/cs-aarch64-pc-linux.gz' | gzip -d | sudo tee /usr/local/bin/cs >/dev/null
+sudo chmod +x /usr/local/bin/cs
+
 sudo chsh -s /usr/bin/zsh
 
 nvim --headless "+Lazy! sync" +qa
